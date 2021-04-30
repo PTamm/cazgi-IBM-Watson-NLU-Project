@@ -19,7 +19,6 @@ function getNLUInstance(){
         serviceurl = api_url,
     });
     return naturalLanguageUnderstanding;
-
 }
 
 app.use(express.static('client'))
@@ -33,19 +32,23 @@ app.get("/",(req,res)=>{
 
 app.get("/url/emotion", (req,res) => {
 
-    return res.send({"happy":"90","sad":"10"});
+    const nlu_url_em = getNLUInstance();
+    return res.send(nlu_url_em.analyze(req.query.url));
 });
 
 app.get("/url/sentiment", (req,res) => {
-    return res.send("url sentiment for "+req.query.url);
+    const nlu_url_se = getNLUInstance();
+    return res.send(nlu_url_se.analyze(req.query.url));
 });
 
 app.get("/text/emotion", (req,res) => {
-    return res.send({"happy":"10","sad":"90"});
+    const nlu_txt_em = getNLUInstance();
+    return res.send(nlu_txt_em.analyze(req.query.text));
 });
 
 app.get("/text/sentiment", (req,res) => {
-    return res.send("text sentiment for "+req.query.text);
+    const nlu_txt_se = getNLUInstance();
+    return res.send(nlu_txt_se.analyze(req.query.text));
 });
 
 let server = app.listen(8080, () => {
