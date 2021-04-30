@@ -18,6 +18,7 @@ function getNLUInstance(){
         }),
         serviceurl = api_url,
     });
+    return naturalLanguageUnderstanding;
 
 }
 
