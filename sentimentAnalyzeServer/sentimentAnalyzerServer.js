@@ -14,9 +14,9 @@ function getNLUInstance(){
     const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
         version: '2020-08-01',
         authenticator: new IamAuthenticator({
-            apikey = api_key,
+            apikey: api_key,
         }),
-        serviceurl = api_url,
+        serviceurl: api_url,
     });
     return naturalLanguageUnderstanding;
 }
@@ -32,22 +32,26 @@ app.get("/",(req,res)=>{
 
 app.get("/url/emotion", (req,res) => {
 
-    const nlu_url_em = getNLUInstance();
+    // return res.send({"happy":"90","sad":"10"});
+    nlu_url_em = getNLUInstance();
     return res.send(nlu_url_em.analyze(req.query.url));
 });
 
 app.get("/url/sentiment", (req,res) => {
-    const nlu_url_se = getNLUInstance();
+    // return res.send("url sentiment for "+req.query.url);
+    nlu_url_se = getNLUInstance();
     return res.send(nlu_url_se.analyze(req.query.url));
 });
 
 app.get("/text/emotion", (req,res) => {
-    const nlu_txt_em = getNLUInstance();
+    // return res.send({"happy":"10","sad":"90"});
+    nlu_txt_em = getNLUInstance();
     return res.send(nlu_txt_em.analyze(req.query.text));
 });
 
 app.get("/text/sentiment", (req,res) => {
-    const nlu_txt_se = getNLUInstance();
+    // return res.send("text sentiment for "+req.query.text);
+    nlu_txt_se = getNLUInstance();
     return res.send(nlu_txt_se.analyze(req.query.text));
 });
 
